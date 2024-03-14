@@ -1,20 +1,29 @@
 const axios = require('axios');
 
-export default function handler(req, res, next) {
-  async function getURI(url) {
-    try {
-      const response = await axios.get(url);
-      if (response.status !== 200) {
-        return res.status(response.status).json({ type: 'error', message: response.statusText });
-      } else {
-      res.json(JSON.stringify(response.data))
-      }
-    } catch (error) {
-      console.log(error.message, "ERR")
-      // return res.status(500).json({ type: 'error', message: error.message });
-    }
-  } 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Content-Type', 'application/json');
-  getURI(JSON.parse(req.body)['my-url'])
+export default async function handler(req, res) {
+  try {
+    const { url, headers, method, body } = req.query;
+
+    const options = {
+      method: method || 'GET',
+      url,
+      headers,
+      data: body ? JSON.parse(body) : undefined,
+    };
+
+    const response = await axios(options);
+
+    res.status(response.status);
+    res.setHeader('Content-Type', response.headers['content-type']);
+    res.send(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ type: 'error', message: error.message });
+  }
 }
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
