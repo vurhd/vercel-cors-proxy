@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       method: method || 'GET',
       url,
       headers,
-      data: body ? JSON.parse(body) : undefined,
+      data: body,
     };
 
     const response = await axios(options);
