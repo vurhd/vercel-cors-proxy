@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       url,
       headers,
       data: body,
-      timeout: 900000,
+      // timeout: 900000,
     };
 
     const response = await axios(options);
