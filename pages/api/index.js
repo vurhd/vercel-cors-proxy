@@ -1,11 +1,8 @@
 const axios = require('axios');
-const querystring = require('querystring');
 
 export default async function handler(req, res) {
   try {
-    const { url, method, body, headers: encodedHeaders } = req.query;
-
-    const headers = querystring.parse(encodedHeaders, ';', '=');
+    const { url, headers, method, body } = req.body;
 
     const options = {
       method: method || 'GET',
@@ -27,6 +24,6 @@ export default async function handler(req, res) {
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: true,
   },
 };
