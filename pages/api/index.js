@@ -1,5 +1,4 @@
 const axios = require("axios");
-export const maxDuration = 300;
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -27,6 +26,7 @@ export default async function handler(req, res) {
       url,
       headers,
       data: body,
+      timeout: 900000,
     };
 
     const response = await axios(options);
