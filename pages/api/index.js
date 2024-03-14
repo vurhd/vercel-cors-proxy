@@ -34,6 +34,7 @@ export default async function handler(req, res) {
     res
       .status(response.status)
       .setHeader("Content-Type", response.headers["content-type"]);
+    console.log(response.data);
     res.send(response.data);
   } catch (error) {
     console.error(error);
