@@ -15,6 +15,7 @@ export default async function handler(req, res) {
 
     res.status(response.status);
     res.setHeader('Content-Type', response.headers['content-type']);
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
     res.send(response.data);
   } catch (error) {
     console.error(error);
