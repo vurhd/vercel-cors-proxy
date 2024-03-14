@@ -2,8 +2,7 @@ const axios = require('axios');
 
 export default async function handler(req, res) {
   try {
-    const { url, method, body } = req.body;
-    const headers = req.headers;
+    const { url, headers, method, body } = req.body;
 
     const options = {
       method: method || 'GET',
